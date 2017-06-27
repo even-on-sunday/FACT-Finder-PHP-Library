@@ -220,10 +220,18 @@ class UrlBuilder
             );
         }
 
-        return $configuration->getRequestProtocol() . '://'
-             . $authentication . $configuration->getServerAddress()
-             . ':' . $configuration->getServerPort()
-             . '/' . $configuration->getContext()
-             . '/' . $action;
+        $url = $configuration->getRequestProtocol() . '://' . $authentication . $configuration->getServerAddress();
+
+        if ($configuration->getServerPort()) {
+            $url .= ':' . $configuration->getServerPort();
+        }
+
+        if ($configuration->getContext()) {
+            $url .= '/' . $configuration->getContext();
+        }
+
+        $url .= '/' . $action;
+
+        return $url;
     }
 }
